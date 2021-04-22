@@ -7,3 +7,8 @@ var am = new Aue({
   // options
 })
 ```
+
+The most basic form of data binding is text interpolation using the “Mustache” syntax (double curly braces):
+``` html
+<span>Message: {{ msg }}</span>
+```
