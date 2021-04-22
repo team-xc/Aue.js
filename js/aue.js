@@ -25,11 +25,11 @@ class Aue {
 		p.style.textAlign = 'center';
 		p.style.fontSize = '50px';
 		p.style.height = '40px';
-		p.innerText = 'Aue';
+		p.innerText = 'Aue.js';
 		welcomeHtml = p.outerHTML;
 
 		p.style.fontSize = '25px';
-		p.innerText = 'Welcome to Aue framework!';
+		p.innerText = 'Welcome to Aue.js!';
 		welcomeHtml += p.outerHTML;
 
 		$(this.el).html(welcomeHtml);
