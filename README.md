@@ -1,4 +1,5 @@
 # Aue.js
+This is a js framework!
 
 Create an instance of Aue:
 ``` js
