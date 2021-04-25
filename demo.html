@@ -15,23 +15,44 @@
 		<div id="app">
 			<h1>{{ title }}</h1>
 			<p>{{ message }}</p>
+
 			<p>time: {{ time }}</p>
-			<input type="button" text="Get time" click="getTime" />
+			<p a-once>[once] time: {{ time }}</p>
+			<input type="button" a-value="Get time" a-click="getTime" />
+
 			<br /><br />
-			<input id="input" text="{{ inputText }}" />
-			<input type="button" text="clear" click="clear" />
+
+			<input id="input" a-model="inputText" />
+			<input type="button" a-value="clear" a-click="clear" />
 			<p>text: {{ inputText }}</p>
-			<input type="button" text="click me!" click="fn" />
+
+			<input type="button" a-value="click me!" a-click="fn" />
+
+			<br /><br />
+
+			<input a-model="content" />
+			<input a-model="content" />
+			<p>{{ content }}</p>
+
+			<input type="radio" a-model="content" />
+			<input type="checkbox" a-model="content" />
+
+			<br /><br />
+
+			<input type="checkbox" a-checked="checked" />
+			<input type="button" a-value="switch checked" a-click="switchChecked" />
 		</div>
 
 		<script>
 			var app = new Aue({
-				el: "#app",
+				el: " #app",
 				data: {
 					title: 'Aue.js',
 					message: 'Welcome to Aue.js!',
 					time: new Date(),
-					inputText: ''
+					inputText: '',
+					content: 'Update data synchronously',
+					checked: true
 				},
 				methods: {
 					getTime: function() {
@@ -42,16 +63,15 @@
 					},
 					fn: function(self) {
 						alert(self.text);
+					},
+					switchChecked: function(self) {
+						aue.checked = !aue.checked;
 					}
 				}
 			});
 
 			setInterval(function() {
 				aue.time = new Date();
-			});
-
-			$("#input").bind("input propertychange", function(event) {
-				aue.inputText = $("#input").val();
 			});
 		</script>
 	</body>
