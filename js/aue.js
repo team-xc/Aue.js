@@ -51,25 +51,22 @@ class Aue {
 			var child = el.firstChild;
 			while (child != el.lastChild) {
 				if (child.nodeType == 1) {
-					if (child.tagName === 'DIV') {
+					if (child.innerText.match(/{{(.+)}}/g) !== null)
+						Aue.setInnerText(child, child.innerText, true);
+					if (child.hasAttribute('a-value'))
+						Aue.setValue(child, child.getAttribute("a-value"), true);
+					if (child.hasAttribute('a-model'))
+						Aue.setModel(child, true);
+					if (child.hasAttribute('a-checked'))
+						Aue.setChecked(child, child.getAttribute("a-checked"), true);
+					if (child.hasAttribute('a-show'))
+						Aue.setShow(child, child.getAttribute("a-show"), true);
+					if (child.hasAttribute('a-class'))
+						Aue.setClass(child, child.getAttribute("a-class"), true);
+					if (child.hasAttribute('a-click'))
+						Aue.setClick(child);
+					if (child.tagName === 'DIV')
 						loadDiv(child);
-					} else {
-						if (child.innerText.match(/{{(.+)}}/g) !== null) {
-							Aue.setInnerText(child, child.innerText, true);
-						}
-						if (child.hasAttribute('a-value')) {
-							Aue.setValue(child, child.getAttribute("a-value"), true);
-						}
-						if (child.hasAttribute('a-model')) {
-							Aue.setModel(child, true);
-						}
-						if (child.hasAttribute('a-checked')) {
-							Aue.setChecked(child, child.getAttribute("a-checked"), true);
-						}
-						if (child.hasAttribute('a-click')) {
-							Aue.setClick(child);
-						}
-					}
 				}
 				child = child.nextSibling;
 			}
@@ -154,11 +151,42 @@ class Aue {
 			}, $.trim(InitialValue));
 	}
 
+	static setShow(child, InitialValue, monitor) {
+		if (aue[$.trim(InitialValue)] === undefined) {
+			return;
+		}
+		const variableValue = aue[$.trim(InitialValue)] === undefined ? InitialValue : aue[$.trim(InitialValue)];
+		child.style.display = variableValue ? 'block' : 'none';
+
+		if (monitor && !child.hasAttribute('a-once'))
+			Aue.addMonitor(child, 'show', {
+				'InitialValue': InitialValue
+			}, $.trim(InitialValue));
+	}
+
+	static setClass(child, InitialValue, monitor) {
+		var childClass = eval('(' + InitialValue + ')');
+		for (var className in childClass) {
+			const variableValue = aue[$.trim(childClass[className])]
+			if (variableValue === undefined) {
+				continue;
+			}
+			if (variableValue) {
+				$(child).addClass(className);
+			} else {
+				$(child).removeClass(className);
+			}
+			if (monitor && !child.hasAttribute('a-once'))
+				Aue.addMonitor(child, 'class', {
+					'InitialValue': InitialValue
+				}, $.trim($.trim(childClass[className])));
+		}
+	}
+
 	static setClick(child) {
 		const funName = child.getAttribute("a-click");
 		child.addEventListener('click', function() {
 			try {
-				child.text = child.value;
 				eval('aueMethod.' + funName + '(child)');
 			} catch (err) {
 				Aue.error(funName + ' is not a function');
@@ -196,6 +224,12 @@ class Aue {
 								break;
 							case 'checked':
 								Aue.setChecked(el['child'], parameter['InitialValue'], false);
+								break;
+							case 'show':
+								Aue.setShow(el['child'], parameter['InitialValue'], false);
+								break;
+							case 'class':
+								Aue.setClass(el['child'], parameter['InitialValue'], false);
 								break;
 						}
 				}
