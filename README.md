@@ -22,7 +22,7 @@ Methods:
 var am = new Aue({
     methods: {
         fn: function(self) {
-            console.log(self.text);
+            console.log(self.value);
         }
     }
 });
@@ -32,19 +32,19 @@ Binding data:
 ``` html
 <span>Message: {{ msg }}</span>
 <input a-value="Message: {{ msg }}" />
-<input type="checkbox" a-checked="checked" />
-<input type="button" a-value="switch checked" a-click="switchChecked" />
+<input type="checkbox" a-checked="isChecked" />
+<input type="button" a-value="switch isChecked" a-click="switchChecked" />
 
 <script>
 var app = new Aue({
     el: "#app",
     data: {
         msg: 'Welcome to Aue.js!',
-		checked: true
+		isChecked: true
     },
 	methods: {
 		switchChecked: function(self) {
-			aue.checked = !aue.checked;
+			aue.isChecked = !aue.isChecked;
 		}
 	}
 });
@@ -85,19 +85,91 @@ var app = new Aue({
 Update data synchronously:
 ``` html
 <div id="app">
-    <input a-model="content" />
-    <input a-model="content" />
-	<input type="radio" a-model="content" />
-	<input type="checkbox" a-model="content" />
-    <p>{{ content }}</p>
+    <input a-model="value" />
+    <input a-model="value" />
+	<input type="radio" a-model="value" />
+	<input type="checkbox" a-model="value" />
+    <p>{{ value }}</p>
 <div/>
   
 <script>
 var app = new Aue({
     el: "#app",
     data: {
-        content: 'Welcome to Aue.js!'
+        value: 'Welcome to Aue.js!'
     }
+});
+</script>
+```
+
+Conditional rendering:
+``` html
+<style>
+	.red {
+		background-color: red;
+		width: 80px;
+		height: 80px;
+		margin: 0 auto;
+	}
+</style>
+
+<div id="app">
+	<div a-show="isShow" class="red"></div>
+	<input type="button" a-value="switch isShow" a-click="switchShow" />
+<div/>
+  
+<script>
+var app = new Aue({
+    el: "#app",
+    data: {
+        isShow: true
+    },
+	methods: {
+		switchShow: function() {
+			aue.isShow = !aue.isShow;
+		}
+	}
+});
+</script>
+```
+
+Dynamic class:
+``` html
+<style>
+	.red {
+		background-color: red;
+		width: 80px;
+		height: 80px;
+		margin: 0 auto;
+	}
+	
+	.big {
+		width: 200px;
+		height: 200px;
+	}
+</style>
+
+<div id="app">
+	<div a-class="{ red: 'isActive', big: 'isBig'}"></div>
+	<input type="button" a-value="switch isActive" a-click="switchActive" />
+	<input type="button" a-value="switch isBig" a-click="switchBig" />
+<div/>
+  
+<script>
+var app = new Aue({
+    el: "#app",
+    data: {
+		isActive: true,
+		isBig: false
+    },
+	methods: {
+		switchActive: function() {
+			aue.isActive = !aue.isActive;
+		},
+		switchBig: function() {
+			aue.isBig = !aue.isBig;
+		}
+	}
 });
 </script>
 ```

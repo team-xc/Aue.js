@@ -8,6 +8,18 @@
 			body {
 				text-align: center;
 			}
+
+			.red {
+				background-color: red;
+				width: 80px;
+				height: 80px;
+				margin: 0 auto;
+			}
+
+			.big {
+				width: 200px;
+				height: 200px;
+			}
 		</style>
 	</head>
 	<body>
@@ -39,8 +51,19 @@
 
 			<br /><br />
 
-			<input type="checkbox" a-checked="checked" />
-			<input type="button" a-value="switch checked" a-click="switchChecked" />
+			<input type="checkbox" a-checked="isChecked" />
+			<input type="button" a-value="switch isChecked" a-click="switchChecked" />
+
+			<br /><br />
+
+			<div a-show="isShow" class="red"></div>
+			<input type="button" a-value="switch isShow" a-click="switchShow" />
+
+			<br /><br />
+
+			<div a-class="{ red: 'isActive', big: 'isBig'}"></div>
+			<input type="button" a-value="switch isActive" a-click="switchActive" />
+			<input type="button" a-value="switch isBig" a-click="switchBig" />
 		</div>
 
 		<script>
@@ -52,7 +75,10 @@
 					time: new Date(),
 					inputText: '',
 					content: 'Update data synchronously',
-					checked: true
+					isChecked: true,
+					isShow: true,
+					isActive: true,
+					isBig: false,
 				},
 				methods: {
 					getTime: function() {
@@ -62,10 +88,19 @@
 						aue.inputText = '';
 					},
 					fn: function(self) {
-						alert(self.text);
+						alert(self.value);
 					},
 					switchChecked: function(self) {
-						aue.checked = !aue.checked;
+						aue.isChecked = !aue.isChecked;
+					},
+					switchShow: function() {
+						aue.isShow = !aue.isShow;
+					},
+					switchActive: function() {
+						aue.isActive = !aue.isActive;
+					},
+					switchBig: function() {
+						aue.isBig = !aue.isBig;
 					}
 				}
 			});
