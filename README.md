@@ -1,6 +1,16 @@
 # Aue.js
 This is a js framework!
 
+Usage
+``` js
+<script src="aue.js"></script>
+```
+
+or
+``` js
+<script src="//cdn.jsdelivr.net/gh/xc912/aue.js@1.0.3/js/aue.js"></script>
+```
+
 Create an instance of Aue:
 ``` js
 var am = new Aue({
