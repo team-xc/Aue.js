@@ -8,7 +8,7 @@ Usage
 
 or
 ``` js
-<script src="//cdn.jsdelivr.net/gh/xc912/aue.js@1.0.3/js/aue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xc912/aue.js@1.0.4/js/aue.js"></script>
 ```
 
 Create an instance of Aue:
@@ -179,6 +179,24 @@ var app = new Aue({
 		switchBig: function() {
 			aue.isBig = !aue.isBig;
 		}
+	}
+});
+</script>
+```
+
+List rendering
+``` html
+<div id="app">
+	<ol>
+		<li a-for="item in list">{{ item }}</li>
+	</ol>
+<div />
+
+<script>
+	var app = new Aue({
+	el: "#app",
+	data: {
+		list: ['Red', 'Green', 'Blue', 'Pink', 'Yellow'],
 	}
 });
 </script>

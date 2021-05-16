@@ -20,6 +20,10 @@
 				width: 200px;
 				height: 200px;
 			}
+
+			ol {
+				text-align: start;
+			}
 		</style>
 	</head>
 	<body>
@@ -64,6 +68,11 @@
 			<div a-class="{ red: 'isActive', big: 'isBig'}"></div>
 			<input type="button" a-value="switch isActive" a-click="switchActive" />
 			<input type="button" a-value="switch isBig" a-click="switchBig" />
+
+
+			<ol>
+				<li a-for="item in list">{{ item }}</li>
+			</ol>
 		</div>
 
 		<script>
@@ -79,6 +88,7 @@
 					isShow: true,
 					isActive: true,
 					isBig: false,
+					list: ['Red', 'Green', 'Blue', 'Pink', 'Yellow'],
 				},
 				methods: {
 					getTime: function() {
