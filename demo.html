@@ -21,7 +21,7 @@
 				height: 200px;
 			}
 
-			ol {
+			#todolist {
 				text-align: start;
 			}
 		</style>
@@ -69,10 +69,18 @@
 			<input type="button" a-value="switch isActive" a-click="switchActive" />
 			<input type="button" a-value="switch isBig" a-click="switchBig" />
 
+			<br /><br />
 
-			<ol>
-				<li a-for="item in list">{{ item }}</li>
-			</ol>
+			<div id="todolist">
+				<input a-model="addText" />
+				<input type="button" a-value="add" a-click="addItem" />
+				<ol>
+					<li a-for="item in list">
+						{{ item }}
+						<button type="button" a-click="deleteItem({{ index }})">delete</button>
+					</li>
+				</ol>
+			</div>
 		</div>
 
 		<script>
@@ -88,7 +96,8 @@
 					isShow: true,
 					isActive: true,
 					isBig: false,
-					list: ['Red', 'Green', 'Blue', 'Pink', 'Yellow'],
+					list: ['Have  a meal', 'Go to bed', 'Playing games'],
+					addText: '',
 				},
 				methods: {
 					getTime: function() {
@@ -111,7 +120,16 @@
 					},
 					switchBig: function() {
 						aue.isBig = !aue.isBig;
-					}
+					},
+					deleteItem: function(index) {
+						delete aue.list[index];
+						aue.list = aue.list;
+					},
+					addItem: function() {
+						aue.list[aue.list.length] = aue.addText;
+						aue.list = aue.list;
+						aue.addText = '';
+					},
 				}
 			});
 
