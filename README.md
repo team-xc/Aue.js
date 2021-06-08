@@ -8,7 +8,7 @@ Usage
 
 or
 ``` js
-<script src="//cdn.jsdelivr.net/gh/xc912/aue.js@1.0.5/js/aue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xc912/aue.js@1.0.6/js/aue.js"></script>
 ```
 
 Create an instance of Aue:
